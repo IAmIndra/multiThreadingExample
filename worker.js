@@ -1,9 +1,10 @@
 require('module-alias/register');
 const { WorkerData, parentPort } = require('worker_threads');
-const { delay } = require('js-code-utils');
 const integrations = {
-
-}
+  'Datacap_api': { getData: false },
+  'NMI_api': { getData: true },
+  'Authnet_api': { getData: true }
+};
 
 parentPort.on('message', async job => {
   const { aggr, dataSource } = job;
@@ -20,3 +21,7 @@ parentPort.on('message', async job => {
     });
   }
 });
+
+async function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}

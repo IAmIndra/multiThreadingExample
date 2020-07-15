@@ -1,5 +1,4 @@
 const { Worker } = require('worker_threads');
-const { delay } = require('js-code-utils');
 const os = require('os');
 const path = require('path');
 const numCPUs = os.cpus().length - 2;
@@ -36,6 +35,10 @@ async function testLaborers () {
   console.log('starting jobs, # jobs: ', jobs.length);
   console.log('num of cpus: ', numCPUs);
   await runJobs({workers, jobs});
+}
+
+async function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 async function runJobs ({ workers, jobs }) {
