@@ -1,4 +1,3 @@
-require('module-alias/register');
 const { WorkerData, parentPort } = require('worker_threads');
 const integrations = {
   'Datacap_api': { getData: false },
