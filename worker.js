@@ -3,7 +3,8 @@ const { WorkerData, parentPort } = require('worker_threads');
 const integrations = {
   'Datacap_api': { getData: false },
   'NMI_api': { getData: true },
-  'Authnet_api': { getData: true }
+  'Authnet_api': { getData: true },
+  'Goldstar_api': { getData: true }
 };
 
 parentPort.on('message', async job => {
@@ -13,13 +14,7 @@ parentPort.on('message', async job => {
   await delay(1000);
   if (integrations[key] && integrations[key].getData) {
     parentPort.postMessage(job);
-  }
-  else {
-    parentPort.postMessage({
-      error: true,
-      err: new Error(`it was not found: ${JSON.stringify(job)}`)
-    });
-  }
+  } else throw new Error(`it was not found: ${JSON.stringify(job)}`);
 });
 
 async function delay(ms) {
